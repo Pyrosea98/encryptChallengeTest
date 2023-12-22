@@ -22,18 +22,16 @@ export class FormComponent {
   }
 
   submitForm() {
-    console.log((<HTMLInputElement>document.getElementById("identifierCrypto")).value);
     const body = {
       idNumber: (<HTMLInputElement>document.getElementById("identifierCrypto")).value,
       name: this.name };
     this.http.post("http://localhost:3000/saveData", body).subscribe(
       (data) => {
         this.http.get("http://localhost:3000/decrypt").subscribe(
-          (data) => console.log(data),
-          (err) => console.log(err)
+          data => console.log(data)
         );
-      },
-      (err) => console.log(err)
+        console.log(data)
+      }
     );
   }
 

@@ -31,13 +31,13 @@ export class Controller {
     }
 
     getDecrypter(res: any): OutputDTO {
-        // try {
+         try {
             return this.encrypter.decryptData(this._encryptedDNI);
-        // }catch (error){
-        //     res.status(400);
-        //     return new OutputDTO(
-        //         'No hay datos de un documento anterior'
-        //     );
-        // }
+         }catch (error){
+             res.status(400);
+             return new OutputDTO(
+                 'Error al desencriptar'
+             );
+         }
     }
 }

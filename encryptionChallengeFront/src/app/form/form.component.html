@@ -1,0 +1,23 @@
+<div class="form-container">
+  <form (ngSubmit)="submitForm()">
+    <label for="identifier">Identifier Number:</label>
+    <input
+      type="string"
+      id="identifier"
+      [(ngModel)]="identifier"
+      name="identifier"
+      required
+      on-focus="putRealIdentifier()"
+      on-focusout="onInputBlur()"
+    />
+    <input
+      type="string"
+      id="identifierCrypto"
+      [(ngModel)]="identifierCopy"
+      name="identifierCrypto"
+    />
+    <label for="name">Name:</label>
+    <input type="text" id="name" [(ngModel)]="name" name="name" required />
+    <button type="submit">Submit</button>
+  </form>
+</div>

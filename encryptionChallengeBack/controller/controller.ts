@@ -3,16 +3,41 @@ import {InputDTO} from "../model/inputDTO";
 import {OutputDTO} from "../model/outputDTO";
 
 export class Controller {
-    constructor(private encrypter: Encrypter) {
 
+    private _encryptedDNI:String;
+    constructor(private encrypter: Encrypter) {
+        this._encryptedDNI = "";
     }
 
-    getEncrypter(req: InputDTO, res: any): OutputDTO {
+    saveData(req: InputDTO, res: any): OutputDTO {
         try {
-            return this.encrypter.encryptData(req);
+            const answer = this.encrypter.saveData(req);
+            this._encryptedDNI=req.idNumber;
+            return answer;
         }catch (error){
             res.status(400);
-            return {message: 'Los campos no fueron diligenciados correctamente'}
+            return new OutputDTO(
+                'Los campos no fueron diligenciados correctamente'
+            );
         }
+    }
+    getEncrypter(res: any): any {
+        try {
+            return this.encrypter.getEncrypter();
+        }catch (error){
+            res.status(500);
+            return 'No existe la llave';
+        }
+    }
+
+    getDecrypter(res: any): OutputDTO {
+        // try {
+            return this.encrypter.decryptData(this._encryptedDNI);
+        // }catch (error){
+        //     res.status(400);
+        //     return new OutputDTO(
+        //         'No hay datos de un documento anterior'
+        //     );
+        // }
     }
 }
